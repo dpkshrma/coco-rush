@@ -54,7 +54,7 @@ As you can see a named import `render` is used to render a React component `Game
 I'll briefly describe what it is:
 So, a react component is just a function or a class which can be rendered as described above.
 If you're using a function to describe a component, it looks like this:
-```
+```jsx
 function Game() {
   return (
     <div>
@@ -66,7 +66,7 @@ function Game() {
 As you can see, you need to return JSX which you'd like to render.
 
 But, in the `Game` module we have used a class to describe the component, like so:
-```
+```jsx
 class Game extends React.Component {
   state = {
     likeThisGame: false
@@ -87,7 +87,7 @@ Going further, you can see that there is a `state` property used.
 In layman terms, this can be used to dictate what state our UI is in currently and also contain some data required in the app.
 
 So, let's say i need to update the state key `likeThisGame` to `true` on button click. I'd do something like:
-```
+```jsx
 class Game extends React.Component {
   state = {
     likeThisGame: false
