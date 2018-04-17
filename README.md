@@ -125,10 +125,10 @@ So, following ideas can be used to make this game awesome:
 
 1. Add chocolate images instead of numbers
 2. Count number of clicks made to uncover all boxes
-3. Add a timer (a timed game ¯\_(ツ)_/¯ )
+3. Add a timer (a timed game ¯\\_(ツ)_/¯ )
 4. Add a few power ups that allow you to see the full board for few seconds
 5. Show feedback (animated/border color) on match found
 6. Add some flairs balloons, etc. when game is completed
-7. Add multiple levels (more boxes/lesser time/lesser allowed clicks ¯\_(ツ)_/¯ )
+7. Add multiple levels (more boxes/lesser time/lesser allowed clicks ¯\\_(ツ)_/¯ )
 8. Add a lot of animation (during game load, click, match, etc.)
 9. {Add your ideas! :)}
