@@ -11,7 +11,7 @@ Fork the project at https://codesandbox.io/s/4rom3r73nx and start editing to see
 
 And when you're happy, go ahead and send me a PR :)
 
-## Prerequisite
+## Prerequisites
 
 Not knowing React, or even JS can be a challenge but not impossible to understand this codebase.
 I'm going to list down minimal know-how in following bullet points:
@@ -117,3 +117,18 @@ So, this is possible due to another library that helps us build simple component
 The default export `styled` exposes all the html components which we can wrap with some css to create out custom React components.
 
 These components are exported from this file and imported back in `Game.js` to be used while rendering the App.
+
+## Next Steps
+
+Obviously, a bland UI like this looks no way near to an interesting game.
+So, following ideas can be used to make this game awesome:
+
+1. Add chocolate images instead of numbers
+2. Count number of clicks made to uncover all boxes
+3. Add a timer (a timed game ¯\_(ツ)_/¯ )
+4. Add a few power ups that allow you to see the full board for few seconds
+5. Show feedback (animated/border color) on match found
+6. Add some flairs balloons, etc. when game is completed
+7. Add multiple levels (more boxes/lesser time/lesser allowed clicks ¯\_(ツ)_/¯ )
+8. Add a lot of animation (during game load, click, match, etc.)
+9. {Add your ideas! :)}
