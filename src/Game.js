@@ -2,6 +2,9 @@ import React from "react";
 import { Container, ChocoBoxes, ChocoBox, Chocolate } from "./components";
 import helpers from "./helpers";
 
+/**
+ * Game Component
+ */
 export default class Game extends React.Component {
   state = {
     chocolates: helpers.getChocolates(),
@@ -9,10 +12,14 @@ export default class Game extends React.Component {
     foundChocos: []
   };
 
+  /**
+   * Returns true if given choco has same value as the visible one
+   */
   checkChocoMatch = secondChoco => {
     const { visibleChocos, chocolates } = this.state;
     const [firstChocoId] = visibleChocos;
 
+    // get visible choco object
     const firstChoco =
       chocolates.find(choco => choco.id === firstChocoId) || {};
 
@@ -23,9 +30,17 @@ export default class Game extends React.Component {
     return false;
   };
 
+  /**
+   * Displays hidden choco on click
+   *
+   * Adds choco id to visible chocos array
+   * If the visible chocos match, add choco value to found chocos array
+   */
   showChoco = choco => {
     const { visibleChocos, foundChocos } = this.state;
 
+    // there can be only 2 chocos visible at a time
+    // and do not add the choco again if already added in visible chocos array
     if (visibleChocos.length < 2 && visibleChocos.indexOf(choco.id) === -1) {
       let newChocosFound = foundChocos;
       if (this.checkChocoMatch(choco)) {
@@ -50,6 +65,7 @@ export default class Game extends React.Component {
             return (
               <ChocoBox key={choco.id} onClick={() => this.showChoco(choco)}>
                 <Chocolate>
+                  {/* display only visible or matched chocos */}
                   {(visibleChocos.indexOf(choco.id) !== -1 ||
                     foundChocos.indexOf(choco.value) !== -1) &&
                     choco.value}
