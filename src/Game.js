@@ -1,6 +1,14 @@
 import React from "react";
-import { Container, ChocoBoxes, ChocoBox, Chocolate } from "./components";
+import {
+  Container,
+  Logo,
+  ChocoBoxes,
+  ChocoBox,
+  Chocolate,
+  ChocoImg
+} from "./components";
 import helpers from "./helpers";
+import { chocoImages } from "./images";
 
 /**
  * Game Component
@@ -60,6 +68,7 @@ export default class Game extends React.Component {
     const { chocolates, visibleChocos, foundChocos } = this.state;
     return (
       <Container>
+        <Logo>coco rush</Logo>
         <ChocoBoxes>
           {chocolates.map(choco => {
             return (
@@ -67,8 +76,9 @@ export default class Game extends React.Component {
                 <Chocolate>
                   {/* display only visible or matched chocos */}
                   {(visibleChocos.indexOf(choco.id) !== -1 ||
-                    foundChocos.indexOf(choco.value) !== -1) &&
-                    choco.value}
+                    foundChocos.indexOf(choco.value) !== -1) && (
+                    <ChocoImg src={chocoImages[choco.value]} />
+                  )}
                 </Chocolate>
               </ChocoBox>
             );

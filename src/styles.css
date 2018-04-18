@@ -3,3 +3,7 @@ body {
   padding: 0;
   margin: 0;
 }
+@font-face {
+  font-family: "Disko";
+  src: local("Disko"), url(Disko.ttf) format("truetype");
+}

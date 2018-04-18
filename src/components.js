@@ -4,7 +4,15 @@ export const Container = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   background-color: #673ab7;
+`;
+export const Logo = styled.div`
+  font-family: "Disko";
+  color: white;
+  align-self: center;
+  font-size: 72px;
+  margin: 24px;
 `;
 export const ChocoBoxes = styled.div`
   max-width: 600px;
@@ -25,4 +33,10 @@ export const ChocoBox = styled.div`
 `;
 export const Chocolate = styled.div`
   margin: auto;
+  display: flex;
+  align-items: center;
+`;
+export const ChocoImg = styled.img`
+  max-height: 80px;
+  max-width: 80px;
 `;
