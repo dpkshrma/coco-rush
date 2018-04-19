@@ -1,12 +1,22 @@
+import hersheys from './hersheys.jpg';
+import kitkat from './kitkat.jpg';
+import dairymilk from './dairymilk.jpg';
+import fivestar from './fivestar.jpg';
+import snickers from './snickers.jpg';
+import galaxy from './galaxy.jpg';
+import mars from './mars.jpg';
+import lindt from './lindt.jpg';
+import bournville from './bournville.jpg';
+import barone from './barone.jpg';
 export const chocoImages = [
-  import('./hersheys.jpg'),
-  import('./kitkat.jpg'),
-  import('./dairymilk.jpg'),
-  import('./fivestar.jpg'),
-  import('./snickers.jpg'),
-  import('./galaxy.jpg'),
-  import('./mars.jpg'),
-  import('./lindt.jpg'),
-  import('./bournville.jpg'),
-  import('./barone.jpg')
+  hersheys,
+  kitkat,
+  dairymilk,
+  fivestar,
+  snickers,
+  galaxy,
+  mars,
+  lindt,
+  bournville,
+  barone,
 ];

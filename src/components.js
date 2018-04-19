@@ -5,6 +5,7 @@ export const Container = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   background-color: #673ab7;
 `;
@@ -20,6 +21,7 @@ export const ChocoBoxes = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-self: center;
+  visibility: ${({ show }) => show ? 'visible' : 'hidden' };
 `;
 export const ChocoBox = styled.div`
   height: 80px;
@@ -40,6 +42,7 @@ export const Chocolate = styled.div`
 export const ChocoImg = styled.img`
   max-height: 80px;
   max-width: 80px;
+  visibility: ${({ show }) => show ? 'visible' : 'hidden' };
 `;
 export const Loading = () => {
   const Container = styled.div`

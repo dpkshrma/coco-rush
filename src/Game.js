@@ -20,17 +20,9 @@ class Game extends React.Component {
     chocolates: helpers.getChocolates(),
     visibleChocos: [],
     foundChocos: [],
-    preloadedChocoImgs: [],
-    loading: false
+    loading: true
   };
-
-  componentWillMount() {
-    this.setState({ loading: true })
-      .then(() => Promise.all(chocoImages))
-      .then(preloadedChocoImgs => this.setState({ preloadedChocoImgs }))
-      .then(() => this.setState({ loading: false }))
-      .catch(console.error);
-  }
+  loadedChocos = [];
 
   /**
    * Returns true if given choco has same value as the visible one
@@ -76,24 +68,46 @@ class Game extends React.Component {
     }
   };
 
+  /**
+   * Triggered after a choco image is loaded
+   * Adds choco to loadedChocos array, turns off loading if all loaded
+   */
+  onChocoLoad = (chocoValue) => {
+    if (!this.state.loading) {
+      return;
+    }
+    if (this.loadedChocos.indexOf(chocoValue) === -1) {
+      this.loadedChocos = [...this.loadedChocos, chocoValue];
+      if (this.loadedChocos.length === chocoImages.length) {
+        this.setState({ loading: false });
+      }
+    }
+  }
+
   render() {
-    const { chocolates, visibleChocos, foundChocos, loading, preloadedChocoImgs } = this.state;
+    const { chocolates, visibleChocos, foundChocos, loading } = this.state;
     return (
       <Container>
         <Logo>coco rush</Logo>
-        <ChocoBoxes>
+        {
+          loading &&
+          <Loading />
+        }
+        <ChocoBoxes show={!loading}>
           {
-            loading ?
-            <Loading /> :
             chocolates.map(choco => {
               return (
                 <ChocoBox key={choco.id} onClick={() => this.showChoco(choco)}>
                   <Chocolate>
-                    {/* display only visible or matched chocos */}
-                    {(visibleChocos.indexOf(choco.id) !== -1 ||
-                      foundChocos.indexOf(choco.value) !== -1) && (
-                      <ChocoImg src={preloadedChocoImgs[choco.value]} />
-                    )}
+                    <ChocoImg
+                      src={chocoImages[choco.value]}
+                      onLoad={() => this.onChocoLoad(choco.value)}
+                      onError={console.error}
+                      show={
+                        visibleChocos.indexOf(choco.id) !== -1 ||
+                        foundChocos.indexOf(choco.value) !== -1
+                      }
+                    />
                   </Chocolate>
                 </ChocoBox>
               );
