@@ -17,8 +17,16 @@ export default class Game extends React.Component {
   state = {
     chocolates: helpers.getChocolates(),
     visibleChocos: [],
-    foundChocos: []
+    foundChocos: [],
+    preloadedChocoImgs: []
   };
+
+  componentWillMount() {
+    Promise.all(chocoImages)
+      .then(preloadedChocoImgs => {
+        this.setState({ preloadedChocoImgs });
+      });
+  }
 
   /**
    * Returns true if given choco has same value as the visible one
@@ -65,7 +73,7 @@ export default class Game extends React.Component {
   };
 
   render() {
-    const { chocolates, visibleChocos, foundChocos } = this.state;
+    const { chocolates, visibleChocos, foundChocos, preloadedChocoImgs } = this.state;
     return (
       <Container>
         <Logo>coco rush</Logo>
@@ -77,7 +85,7 @@ export default class Game extends React.Component {
                   {/* display only visible or matched chocos */}
                   {(visibleChocos.indexOf(choco.id) !== -1 ||
                     foundChocos.indexOf(choco.value) !== -1) && (
-                    <ChocoImg src={chocoImages[choco.value]} />
+                    <ChocoImg src={preloadedChocoImgs[choco.value]} />
                   )}
                 </Chocolate>
               </ChocoBox>
