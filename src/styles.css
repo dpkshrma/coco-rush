@@ -5,5 +5,5 @@ body {
 }
 @font-face {
   font-family: "Disko";
-  src: local("Disko"), url(Disko.ttf) format("truetype");
+  src: url(/Disko.ttf) format("truetype");
 }
