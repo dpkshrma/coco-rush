@@ -5458,6 +5458,10 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+promisify-setstate@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/promisify-setstate/-/promisify-setstate-0.3.0.tgz#b3b2762b5724bd987016a211f9482637104a08a7"
+
 prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"

@@ -1,11 +1,13 @@
 import React from "react";
+import promisifySetState from 'promisify-setstate';
 import {
   Container,
   Logo,
   ChocoBoxes,
   ChocoBox,
   Chocolate,
-  ChocoImg
+  ChocoImg,
+  Loading
 } from "./components";
 import helpers from "./helpers";
 import { chocoImages } from "./images";
@@ -13,19 +15,21 @@ import { chocoImages } from "./images";
 /**
  * Game Component
  */
-export default class Game extends React.Component {
+class Game extends React.Component {
   state = {
     chocolates: helpers.getChocolates(),
     visibleChocos: [],
     foundChocos: [],
-    preloadedChocoImgs: []
+    preloadedChocoImgs: [],
+    loading: false
   };
 
   componentWillMount() {
-    Promise.all(chocoImages)
-      .then(preloadedChocoImgs => {
-        this.setState({ preloadedChocoImgs });
-      });
+    this.setState({ loading: true })
+      .then(() => Promise.all(chocoImages))
+      .then(preloadedChocoImgs => this.setState({ preloadedChocoImgs }))
+      .then(() => this.setState({ loading: false }))
+      .catch(console.error);
   }
 
   /**
@@ -73,26 +77,32 @@ export default class Game extends React.Component {
   };
 
   render() {
-    const { chocolates, visibleChocos, foundChocos, preloadedChocoImgs } = this.state;
+    const { chocolates, visibleChocos, foundChocos, loading, preloadedChocoImgs } = this.state;
     return (
       <Container>
         <Logo>coco rush</Logo>
         <ChocoBoxes>
-          {chocolates.map(choco => {
-            return (
-              <ChocoBox key={choco.id} onClick={() => this.showChoco(choco)}>
-                <Chocolate>
-                  {/* display only visible or matched chocos */}
-                  {(visibleChocos.indexOf(choco.id) !== -1 ||
-                    foundChocos.indexOf(choco.value) !== -1) && (
-                    <ChocoImg src={preloadedChocoImgs[choco.value]} />
-                  )}
-                </Chocolate>
-              </ChocoBox>
-            );
-          })}
+          {
+            loading ?
+            <Loading /> :
+            chocolates.map(choco => {
+              return (
+                <ChocoBox key={choco.id} onClick={() => this.showChoco(choco)}>
+                  <Chocolate>
+                    {/* display only visible or matched chocos */}
+                    {(visibleChocos.indexOf(choco.id) !== -1 ||
+                      foundChocos.indexOf(choco.value) !== -1) && (
+                      <ChocoImg src={preloadedChocoImgs[choco.value]} />
+                    )}
+                  </Chocolate>
+                </ChocoBox>
+              );
+            })
+          }
         </ChocoBoxes>
       </Container>
     );
   }
 }
+
+export default promisifySetState(Game);

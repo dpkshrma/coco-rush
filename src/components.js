@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -40,3 +41,12 @@ export const ChocoImg = styled.img`
   max-height: 80px;
   max-width: 80px;
 `;
+export const Loading = () => {
+  const Container = styled.div`
+    color: white;
+    font-size: 24px;
+  `;
+  return (
+    <Container>Loading...</Container>
+  );
+};
