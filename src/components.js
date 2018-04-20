@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, { css } from "styled-components";
-import { Motion, spring, presets } from 'react-motion';
+import styled, { css, keyframes } from "styled-components";
+import { Motion, spring } from 'react-motion';
 import soundOnImg from './images/soundOn.svg';
 import soundOffImg from './images/soundOff.svg';
 import pointerImg from './images/pointer.svg';
@@ -47,7 +47,7 @@ export const ChocoBox = ({ children, found, ...restProps }) => {
     zoom: 0
   };
   const style = {
-    zoom: spring(1, presets.wobbly)
+    zoom: spring(1, { stiffness: 20, damping: 6 })
   }
   return (
     <Motion
@@ -69,10 +69,19 @@ export const Chocolate = styled.div`
   display: flex;
   align-items: center;
 `;
+const zoomAnimation = keyframes`
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(0.9);
+  }
+`;
 export const ChocoImg = styled.img`
   max-height: 80px;
   max-width: 80px;
   visibility: ${({ show }) => show ? 'visible' : 'hidden' };
+  animation: ${zoomAnimation} 1s alternate infinite;
 `;
 export const Loading = () => {
   const Container = styled.div`
@@ -100,6 +109,7 @@ export const BGMusicToggle = (props) => {
 export const GameStats = styled.div`
   display: flex;
   align-items: center;
+  visibility: ${({ show }) => show ? 'visible' : 'hidden' };
 `;
 export const ClickIcon = () => {
   const Img = styled.img`
