@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { Motion, spring, presets } from 'react-motion';
 import soundOnImg from './images/soundOn.svg';
 import soundOffImg from './images/soundOff.svg';
+import pointerImg from './images/pointer.svg';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -12,7 +13,7 @@ export const Container = styled.div`
   flex-direction: column;
   background-color: #673ab7;
 `;
-export const Logo = styled.div`
+export const BubbleText = styled.div`
   font-family: "Disko";
   color: white;
   align-self: center;
@@ -95,4 +96,19 @@ export const BGMusicToggle = (props) => {
     src = soundOffImg;
   }
   return <Img src={src} {...props} />;
+};
+export const GameStats = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const ClickIcon = () => {
+  const Img = styled.img`
+    height: 42px;
+    border-radius: 50%;
+    border: 2px dashed white;
+    padding: 8px;
+  `;
+  return (
+    <Img src={pointerImg} />
+  );
 };

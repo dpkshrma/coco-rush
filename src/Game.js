@@ -3,13 +3,15 @@ import promisifySetState from 'promisify-setstate';
 import ReactHowler from 'react-howler';
 import {
   Container,
-  Logo,
+  BubbleText,
   ChocoBoxes,
   ChocoBox,
   Chocolate,
   ChocoImg,
   Loading,
-  BGMusicToggle
+  BGMusicToggle,
+  GameStats,
+  ClickIcon
 } from "./components";
 import helpers from "./helpers";
 import { chocoImages } from "./images";
@@ -25,6 +27,7 @@ class Game extends React.Component {
     loading: true,
     mute: false,
     matchFound: false,
+    clicks: 0,
   };
   loadedChocos = [];
 
@@ -55,23 +58,29 @@ class Game extends React.Component {
   showChoco = choco => {
     const { visibleChocos, foundChocos } = this.state;
 
-    // there can be only 2 chocos visible at a time
-    // and do not add the choco again if already added in visible chocos array
-    if (visibleChocos.length < 2 && visibleChocos.indexOf(choco.id) === -1) {
-      let newChocosFound = foundChocos;
-      let matchFound = false;
-      if (this.checkChocoMatch(choco)) {
-        newChocosFound = [...foundChocos, choco.value];
-        matchFound = true;
-      }
+    // do not add the choco again if already added in visible chocos array
+    if (visibleChocos.indexOf(choco.id) === -1 && foundChocos.indexOf(choco.value) === -1) {
+      const clicks = this.state.clicks + 1;
 
-      this.setState({
-        visibleChocos: [...visibleChocos, choco.id],
-        foundChocos: newChocosFound,
-        matchFound
-      });
-    } else {
-      this.setState({ visibleChocos: [choco.id] });
+      // there can be only 2 chocos visible at a time
+      if (visibleChocos.length < 2) {
+        let newChocosFound = foundChocos;
+        let matchFound = false;
+        if (this.checkChocoMatch(choco)) {
+          newChocosFound = [...foundChocos, choco.value];
+          matchFound = true;
+        }
+
+        this.setState({
+          visibleChocos: [...visibleChocos, choco.id],
+          foundChocos: newChocosFound,
+          matchFound,
+          clicks
+        });
+      } else {
+        // reset to show only clicked choco if 2 chocos visible
+        this.setState({ visibleChocos: [choco.id], clicks });
+      }
     }
   };
 
@@ -109,7 +118,7 @@ class Game extends React.Component {
           onClick={() => this.setState({ mute: !this.state.mute })}
           mute={mute}
         />
-        <Logo>coco rush</Logo>
+        <BubbleText>coco rush</BubbleText>
         {
           loading &&
           <Loading />
@@ -139,6 +148,10 @@ class Game extends React.Component {
             })
           }
         </ChocoBoxes>
+        <GameStats>
+          <ClickIcon />
+          <BubbleText>{this.state.clicks}</BubbleText>
+        </GameStats>
       </Container>
     );
   }
