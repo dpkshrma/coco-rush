@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Motion, spring, presets } from 'react-motion';
 
 export const Container = styled.div`
@@ -24,7 +24,7 @@ export const ChocoBoxes = styled.div`
   align-self: center;
   visibility: ${({ show }) => show ? 'visible' : 'hidden' };
 `;
-export const ChocoBox = ({ children, ...restProps }) => {
+export const ChocoBox = ({ children, found, ...restProps }) => {
   const ChocoBoxWrapper = styled.div`
     height: 80px;
     flex: 0 0 80px;
@@ -35,6 +35,10 @@ export const ChocoBox = ({ children, ...restProps }) => {
     color: #555;
     font-size: 40px;
     display: flex;
+    &:hover {
+      box-shadow: 0 0 42px 12px #fffdbc;
+    }
+    ${ found && css`box-shadow: 0 0 42px 12px #7bfff9;` }
   `;
   const defaultStyle = {
     zoom: 0

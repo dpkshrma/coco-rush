@@ -97,7 +97,11 @@ class Game extends React.Component {
           {
             chocolates.map(choco => {
               return (
-                <ChocoBox key={choco.id} onClick={() => this.showChoco(choco)}>
+                <ChocoBox
+                  key={choco.id}
+                  onClick={() => this.showChoco(choco)}
+                  found={foundChocos.indexOf(choco.value) !== -1}
+                >
                   <Chocolate>
                     <ChocoImg
                       src={chocoImages[choco.value]}
