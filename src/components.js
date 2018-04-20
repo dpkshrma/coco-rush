@@ -25,9 +25,14 @@ export const ChocoBoxes = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-self: center;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 300px;
+  min-width: 300px;
   visibility: ${({ show }) => show ? 'visible' : 'hidden' };
 `;
-export const ChocoBox = ({ children, found, ...restProps }) => {
+export const ChocoBox = ({ children, found, gameCompleted, ...restProps }) => {
   const ChocoBoxWrapper = styled.div`
     height: 80px;
     flex: 0 0 80px;
@@ -43,11 +48,12 @@ export const ChocoBox = ({ children, found, ...restProps }) => {
     }
     ${ found && css`box-shadow: 0 0 42px 12px #7bfff9;` }
   `;
+  const springConf = { stiffness: 20, damping: 10 };
   const defaultStyle = {
-    zoom: 0
+    zoom: gameCompleted ? 1 : 0
   };
   const style = {
-    zoom: spring(1, { stiffness: 20, damping: 6 })
+    zoom: gameCompleted ? spring(0, springConf) : spring(1, springConf)
   }
   return (
     <Motion

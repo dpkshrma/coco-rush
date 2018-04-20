@@ -8,6 +8,8 @@ import mars from './mars.jpg';
 import lindt from './lindt.jpg';
 import bournville from './bournville.jpg';
 import barone from './barone.jpg';
+import { NUM_CHOCOS } from '../config';
+
 export const chocoImages = [
   hersheys,
   kitkat,
@@ -19,4 +21,4 @@ export const chocoImages = [
   lindt,
   bournville,
   barone,
-];
+].slice(0, NUM_CHOCOS);

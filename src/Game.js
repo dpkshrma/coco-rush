@@ -13,6 +13,7 @@ import {
   GameStats,
   ClickIcon
 } from "./components";
+import EndOfGame from './EndOfGame';
 import helpers from "./helpers";
 import { chocoImages } from "./images";
 
@@ -28,6 +29,8 @@ class Game extends React.Component {
     mute: false,
     matchFound: false,
     clicks: 0,
+    gameCompleted: false,
+    showEndOfGame: false
   };
   loadedChocos = [];
 
@@ -56,7 +59,7 @@ class Game extends React.Component {
    * If the visible chocos match, add choco value to found chocos array
    */
   showChoco = choco => {
-    const { visibleChocos, foundChocos } = this.state;
+    const { visibleChocos, foundChocos, chocolates } = this.state;
 
     // do not add the choco again if already added in visible chocos array
     if (visibleChocos.indexOf(choco.id) === -1 && foundChocos.indexOf(choco.value) === -1) {
@@ -70,13 +73,23 @@ class Game extends React.Component {
           newChocosFound = [...foundChocos, choco.value];
           matchFound = true;
         }
+        let gameCompleted = false;
+        if (newChocosFound.length === chocolates.length/2) {
+          gameCompleted = true;
+        }
 
         this.setState({
           visibleChocos: [...visibleChocos, choco.id],
           foundChocos: newChocosFound,
           matchFound,
+          gameCompleted,
           clicks
-        });
+        })
+          .then(() => {
+            // show end of game message after a sec
+            this.state.gameCompleted && setTimeout(() => this.setState({ showEndOfGame: true }), 1000);
+          });
+
       } else {
         // reset to show only clicked choco if 2 chocos visible
         this.setState({ visibleChocos: [choco.id], clicks });
@@ -101,7 +114,7 @@ class Game extends React.Component {
   }
 
   render() {
-    const { chocolates, visibleChocos, foundChocos, loading, mute } = this.state;
+    const { chocolates, visibleChocos, foundChocos, loading, mute, showEndOfGame } = this.state;
     return (
       <Container>
         <ReactHowler
@@ -125,12 +138,17 @@ class Game extends React.Component {
         }
         <ChocoBoxes show={!loading}>
           {
+            showEndOfGame &&
+            <EndOfGame />
+          }
+          {
             chocolates.map(choco => {
               return (
                 <ChocoBox
                   key={choco.id}
                   onClick={() => this.showChoco(choco)}
                   found={foundChocos.indexOf(choco.value) !== -1}
+                  gameCompleted={showEndOfGame}
                 >
                   <Chocolate>
                     <ChocoImg
@@ -148,7 +166,7 @@ class Game extends React.Component {
             })
           }
         </ChocoBoxes>
-        <GameStats>
+        <GameStats show={!loading}>
           <ClickIcon />
           <BubbleText>{this.state.clicks}</BubbleText>
         </GameStats>
