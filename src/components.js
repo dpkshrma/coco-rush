@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from "styled-components";
 import { Motion, spring, presets } from 'react-motion';
+import soundOnImg from './images/soundOn.svg';
+import soundOffImg from './images/soundOff.svg';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -79,4 +81,18 @@ export const Loading = () => {
   return (
     <Container>Loading...</Container>
   );
+};
+export const BGMusicToggle = (props) => {
+  const Img = styled.img`
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    height: 32px;
+    cursor: pointer;
+  `;
+  let src = soundOnImg;
+  if (props.mute) {
+    src = soundOffImg;
+  }
+  return <Img src={src} {...props} />;
 };

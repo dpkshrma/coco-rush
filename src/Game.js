@@ -1,5 +1,6 @@
 import React from "react";
 import promisifySetState from 'promisify-setstate';
+import ReactHowler from 'react-howler';
 import {
   Container,
   Logo,
@@ -7,7 +8,8 @@ import {
   ChocoBox,
   Chocolate,
   ChocoImg,
-  Loading
+  Loading,
+  BGMusicToggle
 } from "./components";
 import helpers from "./helpers";
 import { chocoImages } from "./images";
@@ -20,7 +22,9 @@ class Game extends React.Component {
     chocolates: helpers.getChocolates(),
     visibleChocos: [],
     foundChocos: [],
-    loading: true
+    loading: true,
+    mute: false,
+    matchFound: false,
   };
   loadedChocos = [];
 
@@ -55,13 +59,16 @@ class Game extends React.Component {
     // and do not add the choco again if already added in visible chocos array
     if (visibleChocos.length < 2 && visibleChocos.indexOf(choco.id) === -1) {
       let newChocosFound = foundChocos;
+      let matchFound = false;
       if (this.checkChocoMatch(choco)) {
         newChocosFound = [...foundChocos, choco.value];
+        matchFound = true;
       }
 
       this.setState({
         visibleChocos: [...visibleChocos, choco.id],
-        foundChocos: newChocosFound
+        foundChocos: newChocosFound,
+        matchFound
       });
     } else {
       this.setState({ visibleChocos: [choco.id] });
@@ -85,9 +92,23 @@ class Game extends React.Component {
   }
 
   render() {
-    const { chocolates, visibleChocos, foundChocos, loading } = this.state;
+    const { chocolates, visibleChocos, foundChocos, loading, mute } = this.state;
     return (
       <Container>
+        <ReactHowler
+          src={"/sounds/Podington_Bear_-_09_-_Sunset_Stroll_Into_The_Wood.mp3"}
+          playing={!mute}
+          loop={true}
+        />
+        <ReactHowler
+          src={"/sounds/186719__andromadax24__chime-01.wav"}
+          playing={this.state.matchFound}
+          onEnd={() => { this.setState({ matchFound: false }); }}
+        />
+        <BGMusicToggle
+          onClick={() => this.setState({ mute: !this.state.mute })}
+          mute={mute}
+        />
         <Logo>coco rush</Logo>
         {
           loading &&
