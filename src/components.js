@@ -14,7 +14,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #673ab7;
+  background-color: ${({ bgColor='#673ab7' }) => bgColor};
 `;
 export const BubbleText = styled.div`
   font-family: "Disko";
@@ -138,7 +138,7 @@ export const ShareForkBtns = styled.div`
   left: 16px;
 `;
 const ShareForkBtn = styled.a`
-  border-radius: 4px;
+  border-radius: 3px;
   color: #fff;
   padding: 4px 16px;
   font-size: 12px;
@@ -147,18 +147,20 @@ const ShareForkBtn = styled.a`
   text-decoration: none;
   display: flex;
   align-items: center;
-  margin-right: 4px;
+  margin-right: 12px;
+  height: 20px;
+  letter-spacing: 1px;
+  &:hover {
+    box-shadow: 0 2px 4px #111;
+  }
 `;
 const Img = styled.img`
-  height: 12px;
-  margin-right: 4px;
+  height: 16px;
+  margin-right: 6px;
 `;
 export const TwitterShareBtn = () => {
   const Btn = ShareForkBtn.extend`
-    background: #55acee;
-    &:hover {
-      background: #1dcaff;
-    }
+    background: #1dcaff;
   `;
   return (
     <Btn href={shareUrl} target="_blank">
@@ -167,17 +169,14 @@ export const TwitterShareBtn = () => {
     </Btn>
   );
 };
-export const GithubForkBtn = () => {
+export const GithubStarBtn = () => {
   const Btn = ShareForkBtn.extend`
-    background: #222;
-    &:hover {
-      background: #333;
-    }
+    background: #333;
   `;
   return (
     <Btn href={forkUrl} target="_blank">
       <Img src={githubLogo} />
-      Fork
+      Star
     </Btn>
   )
 }
