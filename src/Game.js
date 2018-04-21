@@ -11,7 +11,10 @@ import {
   Loading,
   BGMusicToggle,
   GameStats,
-  ClickIcon
+  ClickIcon,
+  ShareForkBtns,
+  TwitterShareBtn,
+  GithubForkBtn
 } from "./components";
 import EndOfGame from './EndOfGame';
 import helpers from "./helpers";
@@ -145,6 +148,10 @@ class Game extends React.Component {
           onClick={() => this.setState({ mute: !this.state.mute })}
           mute={mute}
         />
+        <ShareForkBtns>
+          <TwitterShareBtn />
+          <GithubForkBtn />
+        </ShareForkBtns>
         <BubbleText>coco rush</BubbleText>
         {
           loading &&

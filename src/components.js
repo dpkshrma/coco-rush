@@ -4,6 +4,9 @@ import { Motion, spring } from 'react-motion';
 import soundOnImg from './images/soundOn.svg';
 import soundOffImg from './images/soundOff.svg';
 import pointerImg from './images/pointer.svg';
+import twitterLogo from './images/twitter-logo.svg';
+import githubLogo from './images/github-logo.svg';
+import { shareUrl, forkUrl } from './config';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -128,3 +131,53 @@ export const ClickIcon = () => {
     <Img src={pointerImg} />
   );
 };
+export const ShareForkBtns = styled.div`
+  display: flex;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+`;
+const ShareForkBtn = styled.a`
+  border-radius: 4px;
+  color: #fff;
+  padding: 4px 16px;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+`;
+const Img = styled.img`
+  height: 12px;
+  margin-right: 4px;
+`;
+export const TwitterShareBtn = () => {
+  const Btn = ShareForkBtn.extend`
+    background: #55acee;
+    &:hover {
+      background: #1dcaff;
+    }
+  `;
+  return (
+    <Btn href={shareUrl} target="_blank">
+      <Img src={twitterLogo} />
+      Share
+    </Btn>
+  );
+};
+export const GithubForkBtn = () => {
+  const Btn = ShareForkBtn.extend`
+    background: #222;
+    &:hover {
+      background: #333;
+    }
+  `;
+  return (
+    <Btn href={forkUrl} target="_blank">
+      <Img src={githubLogo} />
+      Fork
+    </Btn>
+  )
+}
