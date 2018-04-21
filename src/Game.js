@@ -14,7 +14,7 @@ import {
   ClickIcon,
   ShareForkBtns,
   TwitterShareBtn,
-  GithubForkBtn
+  GithubStarBtn
 } from "./components";
 import EndOfGame from './EndOfGame';
 import helpers from "./helpers";
@@ -30,7 +30,8 @@ const INITIAL_STATE = {
   clicks: 0,
   gameCompleted: false,
   showEndOfGame: false,
-  currentRecord: 0
+  currentRecord: 0,
+  bgMusicLoading: true,
 };
 
 /**
@@ -131,26 +132,41 @@ class Game extends React.Component {
   };
 
   render() {
-    const { chocolates, visibleChocos, foundChocos, loading, mute, showEndOfGame, clicks, currentRecord } = this.state;
+    const {
+      chocolates,
+      visibleChocos,
+      foundChocos,
+      loading,
+      mute,
+      showEndOfGame,
+      clicks,
+      currentRecord,
+      bgMusicLoading
+    } = this.state;
+
     return (
       <Container>
         <ReactHowler
           src={"/sounds/Podington_Bear_-_09_-_Sunset_Stroll_Into_The_Wood.mp3"}
           playing={!mute}
           loop={true}
+          preload={true}
+          onLoad={() => this.setState({ bgMusicLoading: false })}
         />
         <ReactHowler
           src={"/sounds/186719__andromadax24__chime-01.wav"}
           playing={this.state.matchFound}
           onEnd={() => { this.setState({ matchFound: false }); }}
+          preload={true}
         />
         <BGMusicToggle
+          loading={bgMusicLoading}
           onClick={() => this.setState({ mute: !this.state.mute })}
           mute={mute}
         />
         <ShareForkBtns>
           <TwitterShareBtn />
-          <GithubForkBtn />
+          <GithubStarBtn />
         </ShareForkBtns>
         <BubbleText>coco rush</BubbleText>
         {

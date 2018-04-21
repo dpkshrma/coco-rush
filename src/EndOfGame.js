@@ -7,7 +7,8 @@ const Container = styled.div`
   position: absolute;
   align-self: center;
   color: white;
-  font-family: fantasy, sans-serif;
+  font-family: ArchitectsDaughter, fantasy, sans-serif;
+  letter-spacing: 1px;
   display: flex;
   align-items: center;
   justify-content: center;

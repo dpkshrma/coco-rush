@@ -102,18 +102,34 @@ export const Loading = () => {
   );
 };
 export const BGMusicToggle = (props) => {
-  const Img = styled.img`
+  const Container = styled.div`
     position: absolute;
     top: 32px;
     right: 32px;
-    height: 32px;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
   `;
-  let src = soundOnImg;
-  if (props.mute) {
-    src = soundOffImg;
-  }
-  return <Img src={src} {...props} />;
+  const Img = styled.img`
+    cursor: pointer;
+    height: 32px;
+    display: ${({ show }) => show ? 'block' : 'none'};
+  `;
+  const LoadingMusic = styled.div`
+    font-size: 20px;
+    color: #fff
+    font-family: ArchitectsDaughter, fantasy;
+  `;
+  return (
+    <Container>
+      <Img src={soundOnImg} show={!props.mute} {...props} />
+      <Img src={soundOffImg} show={props.mute} {...props} />
+      {
+        props.loading &&
+        <LoadingMusic>Buffering...</LoadingMusic>
+      }
+    </Container>
+  );
 };
 export const GameStats = styled.div`
   display: flex;

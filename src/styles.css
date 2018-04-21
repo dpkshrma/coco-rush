@@ -7,3 +7,7 @@ body {
   font-family: "Disko";
   src: url(/Disko.ttf) format("truetype");
 }
+@font-face {
+  font-family: "ArchitectsDaughter";
+  src: url(/ArchitectsDaughter.ttf) format("truetype");
+}
