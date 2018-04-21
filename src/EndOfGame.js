@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Motion, spring } from 'react-motion';
 import ReplayImg from './images/rotating-arrow-to-the-left.svg';
 
@@ -27,40 +27,63 @@ const DonateBtn = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 32px 10px #7bfff9;
   text-decoration: none;
   &:hover {
     box-shadow: 0 0 32px 10px #fffdbc;
   }
 `;
 const HappyEmoji = ({ excite }) => {
-  const Container = styled.div`
+  const Container = styled.span`
     font-size: 32px;
     padding: 0 8px;
     margin-bottom: -10px;
   `;
   if (excite) {
-    return <Container>😃</Container>;
+    return (
+      <Container>
+        <span role="img" aria-label="happy">😃</span>
+      </Container>
+    );
   }
-  return <Container>🙂</Container>;
+  return (
+    <Container>
+      <span role="img" aria-label="slightly happy">🙂</span>
+    </Container>
+  );
 };
+const ReplayIcon = () => {
+  const Img = styled.img`
+    height: 16px;
+    padding: 0 8px;
+    transform: rotate(-45deg);
+  `;
+  return <Img className="replay-icon" src={ReplayImg} />;
+};
+const rotate360 = keyframes`
+  from {
+    transform: rotate(315deg);
+  }
+  to {
+    transform: rotate(-45deg);
+  }
+`;
 const ReplayBtn = styled.div`
   cursor: pointer;
   width: fit-content;
   display: flex;
-`;
-const ReplayIcon = () => {
-  const Img = styled.img`
-    height: 20px;
-    padding: 0 8px;
-    transform: rotate(-45deg);
-  `;
-  return <Img src={ReplayImg} />;
-};
-const ReplayText = styled.span`
-  &:hover {
-    border-bottom: 1px dashed #fff;
+  &:hover .replay-icon {
+    animation: ${rotate360} 2s linear infinite;
   }
+`;
+const ReplayText = styled.span``;
+const Record = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+`
+const RecordClicks = styled.div`
+  font-family: Disko;
+  margin-left: 8px;
 `;
 
 class EndOfGame extends React.Component {
@@ -76,8 +99,21 @@ class EndOfGame extends React.Component {
         {
           ({ opacity }) => (
             <Container style={{ opacity }}>
-              <Title>Awesome!!! You did it! :)</Title>
-              <ReplayBtn>
+              {
+                this.props.newRecord ?
+                <Record>
+                  New Record: <RecordClicks size={16}>{this.props.record}</RecordClicks>
+                </Record> :
+                <Record>
+                  Personal Best: <RecordClicks size={16}>{this.props.record}</RecordClicks>
+                </Record>
+              }
+              {
+                this.props.newRecord ?
+                <Title>You hit a personal best! \o/</Title> :
+                <Title>Awesome!!! You did it! :)</Title>
+              }
+              <ReplayBtn onClick={this.props.replay}>
                 <ReplayIcon />
                 <ReplayText>Play Again ?</ReplayText>
               </ReplayBtn>

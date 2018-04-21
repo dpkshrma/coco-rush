@@ -48,7 +48,7 @@ export const ChocoBox = ({ children, found, gameCompleted, ...restProps }) => {
     }
     ${ found && css`box-shadow: 0 0 42px 12px #7bfff9;` }
   `;
-  const springConf = { stiffness: 20, damping: 10 };
+  const springConf = { stiffness: 40, damping: 10 };
   const defaultStyle = {
     zoom: gameCompleted ? 1 : 0
   };

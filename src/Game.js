@@ -17,21 +17,24 @@ import EndOfGame from './EndOfGame';
 import helpers from "./helpers";
 import { chocoImages } from "./images";
 
+const INITIAL_STATE = {
+  chocolates: helpers.getChocolates(),
+  visibleChocos: [],
+  foundChocos: [],
+  loading: true,
+  mute: false,
+  matchFound: false,
+  clicks: 0,
+  gameCompleted: false,
+  showEndOfGame: false,
+  currentRecord: 0
+};
+
 /**
  * Game Component
  */
 class Game extends React.Component {
-  state = {
-    chocolates: helpers.getChocolates(),
-    visibleChocos: [],
-    foundChocos: [],
-    loading: true,
-    mute: false,
-    matchFound: false,
-    clicks: 0,
-    gameCompleted: false,
-    showEndOfGame: false
-  };
+  state = INITIAL_STATE;
   loadedChocos = [];
 
   /**
@@ -87,7 +90,14 @@ class Game extends React.Component {
         })
           .then(() => {
             // show end of game message after a sec
-            this.state.gameCompleted && setTimeout(() => this.setState({ showEndOfGame: true }), 1000);
+            if (this.state.gameCompleted) {
+              let currentRecord = localStorage.getItem('record');
+              if (!currentRecord || (clicks < parseInt(currentRecord, 10))) {
+                localStorage.setItem('record', clicks);
+                currentRecord = clicks;
+              }
+              setTimeout(() => this.setState({ showEndOfGame: true, currentRecord }), 1000);
+            }
           });
 
       } else {
@@ -113,8 +123,12 @@ class Game extends React.Component {
     }
   }
 
+  resetGame = () => {
+    this.setState(Object.assign({}, INITIAL_STATE, { loading: false }));
+  };
+
   render() {
-    const { chocolates, visibleChocos, foundChocos, loading, mute, showEndOfGame } = this.state;
+    const { chocolates, visibleChocos, foundChocos, loading, mute, showEndOfGame, clicks, currentRecord } = this.state;
     return (
       <Container>
         <ReactHowler
@@ -139,7 +153,11 @@ class Game extends React.Component {
         <ChocoBoxes show={!loading}>
           {
             showEndOfGame &&
-            <EndOfGame />
+            <EndOfGame
+              replay={this.resetGame}
+              newRecord={clicks === currentRecord}
+              record={currentRecord}
+            />
           }
           {
             chocolates.map(choco => {
