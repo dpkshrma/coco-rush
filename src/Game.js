@@ -147,7 +147,7 @@ class Game extends React.Component {
       this.setState({
         currentGradientTransition: newTransition
       });
-    }, 2000);
+    }, 500);
   };
 
   resetGame = () => {

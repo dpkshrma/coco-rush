@@ -45,7 +45,7 @@ export const ColorTransition = ({ gradients, onTransitionEnd, children, ...restP
         ({ f }) => {
           const color1 = chroma.interpolate(gradients.from[0], gradients.to[0], f).hex();
           const color2 = chroma.interpolate(gradients.from[1], gradients.to[1], f).hex();
-          const background = `linear-gradient(to top, ${color1}, ${color2})`;
+          const background = `linear-gradient(to bottom, ${color1}, ${color2})`;
           return (
             <Container style={{ background }} {...restProps}>
               {children}
