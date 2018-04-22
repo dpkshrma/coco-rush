@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "chroma-js": "^1.3.6",
     "lodash.shuffle": "4.2.0",
     "promisify-setstate": "^0.3.0",
     "react": "16.2.0",

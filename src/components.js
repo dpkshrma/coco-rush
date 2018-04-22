@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css, keyframes } from "styled-components";
 import { Motion, spring } from 'react-motion';
+import chroma from 'chroma-js';
 import soundOnImg from './images/soundOn.svg';
 import soundOffImg from './images/soundOff.svg';
 import pointerImg from './images/pointer.svg';
@@ -15,7 +16,46 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${({ bgColor='#673ab7' }) => bgColor};
+  background: #67B26F;  /* fallback for old browsers */
+  background: linear-gradient(to top, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 100;
+`;
+export const ColorTransition = ({ gradients, onTransitionEnd, children, ...restProps }) => {
+  const Container = styled.div`
+    min-height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+  `;
+  const defaultStyle = { f: 0 };
+  const springConf = { stiffness: 5, damping: 10 };
+  const style = {
+    f: spring(1, springConf)
+  };
+  return (
+    <Motion key={gradients.to[0]} style={style} defaultStyle={defaultStyle} onRest={onTransitionEnd}>
+      {
+        ({ f }) => {
+          const color1 = chroma.interpolate(gradients.from[0], gradients.to[0], f).hex();
+          const color2 = chroma.interpolate(gradients.from[1], gradients.to[1], f).hex();
+          const background = `linear-gradient(to top, ${color1}, ${color2})`;
+          return (
+            <Container style={{ background }} {...restProps}>
+              {children}
+            </Container>
+          );
+        }
+      }
+    </Motion>
+  );
+};
 export const BubbleText = styled.div`
   font-family: "Disko";
   color: white;
@@ -176,7 +216,7 @@ const Img = styled.img`
 `;
 export const TwitterShareBtn = () => {
   const Btn = ShareForkBtn.extend`
-    background: #1dcaff;
+    background: #1b95e0;
   `;
   return (
     <Btn href={shareUrl} target="_blank">

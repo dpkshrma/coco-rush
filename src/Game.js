@@ -3,6 +3,7 @@ import promisifySetState from 'promisify-setstate';
 import ReactHowler from 'react-howler';
 import {
   Container,
+  Wrapper,
   BubbleText,
   ChocoBoxes,
   ChocoBox,
@@ -14,11 +15,13 @@ import {
   ClickIcon,
   ShareForkBtns,
   TwitterShareBtn,
-  GithubStarBtn
+  GithubStarBtn,
+  ColorTransition
 } from "./components";
 import EndOfGame from './EndOfGame';
 import helpers from "./helpers";
 import { chocoImages } from "./images";
+import { gradientColors } from './config';
 
 const INITIAL_STATE = {
   chocolates: helpers.getChocolates(),
@@ -32,6 +35,11 @@ const INITIAL_STATE = {
   showEndOfGame: false,
   currentRecord: 0,
   bgMusicLoading: true,
+  currentGradientTransition: {
+    from: gradientColors[0],
+    to: gradientColors[0],
+    pos: 0,
+  }
 };
 
 /**
@@ -127,6 +135,21 @@ class Game extends React.Component {
     }
   }
 
+  cycleBackgroundGradients = () => {
+    const { currentGradientTransition: prevTransition } = this.state;
+    setTimeout(() => {
+      const pos = (prevTransition.pos + 1) % gradientColors.length;
+      const newTransition = {
+        from: prevTransition.to,
+        to: gradientColors[pos],
+        pos
+      };
+      this.setState({
+        currentGradientTransition: newTransition
+      });
+    }, 2000);
+  };
+
   resetGame = () => {
     this.setState(Object.assign({}, INITIAL_STATE, { loading: false }));
   };
@@ -141,76 +164,83 @@ class Game extends React.Component {
       showEndOfGame,
       clicks,
       currentRecord,
-      bgMusicLoading
+      bgMusicLoading,
+      currentGradientTransition
     } = this.state;
 
     return (
       <Container>
-        <ReactHowler
-          src={"/sounds/Podington_Bear_-_09_-_Sunset_Stroll_Into_The_Wood.mp3"}
-          playing={!mute}
-          loop={true}
-          preload={true}
-          onLoad={() => this.setState({ bgMusicLoading: false })}
-        />
-        <ReactHowler
-          src={"/sounds/186719__andromadax24__chime-01.wav"}
-          playing={this.state.matchFound}
-          onEnd={() => { this.setState({ matchFound: false }); }}
-          preload={true}
-        />
-        <BGMusicToggle
-          loading={bgMusicLoading}
-          onClick={() => this.setState({ mute: !this.state.mute })}
-          mute={mute}
-        />
-        <ShareForkBtns>
-          <TwitterShareBtn />
-          <GithubStarBtn />
-        </ShareForkBtns>
-        <BubbleText>coco rush</BubbleText>
-        {
-          loading &&
-          <Loading />
-        }
-        <ChocoBoxes show={!loading}>
+        <Wrapper>
+          <ReactHowler
+            src={"/sounds/Podington_Bear_-_09_-_Sunset_Stroll_Into_The_Wood.mp3"}
+            playing={!mute}
+            loop={true}
+            preload={true}
+            onLoad={() => this.setState({ bgMusicLoading: false })}
+          />
+          <ReactHowler
+            src={"/sounds/186719__andromadax24__chime-01.wav"}
+            playing={this.state.matchFound}
+            onEnd={() => { this.setState({ matchFound: false }); }}
+            preload={true}
+          />
+          <BGMusicToggle
+            loading={bgMusicLoading}
+            onClick={() => this.setState({ mute: !this.state.mute })}
+            mute={mute}
+          />
+          <ShareForkBtns>
+            <TwitterShareBtn />
+            <GithubStarBtn />
+          </ShareForkBtns>
+          <BubbleText>coco rush</BubbleText>
           {
-            showEndOfGame &&
-            <EndOfGame
-              replay={this.resetGame}
-              newRecord={clicks === currentRecord}
-              record={currentRecord}
-            />
+            loading &&
+            <Loading />
           }
-          {
-            chocolates.map(choco => {
-              return (
-                <ChocoBox
-                  key={choco.id}
-                  onClick={() => this.showChoco(choco)}
-                  found={foundChocos.indexOf(choco.value) !== -1}
-                  gameCompleted={showEndOfGame}
-                >
-                  <Chocolate>
-                    <ChocoImg
-                      src={chocoImages[choco.value]}
-                      onLoad={() => this.onChocoLoad(choco.value)}
-                      onError={console.error}
-                      show={
-                        visibleChocos.indexOf(choco.id) !== -1 ||
-                        foundChocos.indexOf(choco.value) !== -1
-                      }
-                    />
-                  </Chocolate>
-                </ChocoBox>
-              );
-            })
-          }
-        </ChocoBoxes>
-        <GameStats show={!loading}>
-          <ClickIcon />
-          <BubbleText>{this.state.clicks}</BubbleText>
-        </GameStats>
+          <ChocoBoxes show={!loading}>
+            {
+              showEndOfGame &&
+              <EndOfGame
+                replay={this.resetGame}
+                newRecord={clicks === currentRecord}
+                record={currentRecord}
+              />
+            }
+            {
+              chocolates.map(choco => {
+                return (
+                  <ChocoBox
+                    key={choco.id}
+                    onClick={() => this.showChoco(choco)}
+                    found={foundChocos.indexOf(choco.value) !== -1}
+                    gameCompleted={showEndOfGame}
+                    >
+                      <Chocolate>
+                        <ChocoImg
+                          src={chocoImages[choco.value]}
+                          onLoad={() => this.onChocoLoad(choco.value)}
+                          onError={console.error}
+                          show={
+                            visibleChocos.indexOf(choco.id) !== -1 ||
+                            foundChocos.indexOf(choco.value) !== -1
+                          }
+                        />
+                      </Chocolate>
+                    </ChocoBox>
+                  );
+                })
+              }
+          </ChocoBoxes>
+          <GameStats show={!loading}>
+            <ClickIcon />
+            <BubbleText>{this.state.clicks}</BubbleText>
+          </GameStats>
+        </Wrapper>
+        <ColorTransition
+          gradients={currentGradientTransition}
+          onTransitionEnd={this.cycleBackgroundGradients}
+        />
       </Container>
     );
   }
