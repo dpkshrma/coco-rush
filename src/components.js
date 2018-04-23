@@ -176,17 +176,18 @@ export const GameStats = styled.div`
   align-items: center;
   visibility: ${({ show }) => show ? 'visible' : 'hidden' };
 `;
-export const ClickIcon = () => {
-  const Img = styled.img`
-    height: 42px;
-    border-radius: 50%;
-    border: 2px dashed white;
-    padding: 8px;
-  `;
-  return (
-    <Img src={pointerImg} />
-  );
-};
+const StatImg = styled.img`
+  height: 40px;
+  border-radius: 50%;
+  border: 3px dashed white;
+  padding: 8px;
+  opacity: 0.7;
+  margin-top: -12px;
+`;
+export const ClickIcon = () => <StatImg src={pointerImg} />;
+export const ClickCount = BubbleText.extend`
+  margin: 12px;
+`;
 export const ShareForkBtns = styled.div`
   display: flex;
   position: absolute;
@@ -235,4 +236,4 @@ export const GithubStarBtn = () => {
       Star
     </Btn>
   )
-}
+};

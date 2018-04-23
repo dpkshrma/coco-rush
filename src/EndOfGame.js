@@ -72,6 +72,7 @@ const ReplayBtn = styled.div`
   cursor: pointer;
   width: fit-content;
   display: flex;
+  align-items: center;
   margin: 32px 0;
   &:hover .replay-icon {
     animation: ${rotate360} 2s linear infinite;

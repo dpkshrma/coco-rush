@@ -13,11 +13,13 @@ import {
   BGMusicToggle,
   GameStats,
   ClickIcon,
+  ClickCount,
   ShareForkBtns,
   TwitterShareBtn,
   GithubStarBtn,
   ColorTransition
 } from "./components";
+import FollowMe from './FollowMe';
 import EndOfGame from './EndOfGame';
 import helpers from "./helpers";
 import { chocoImages } from "./images";
@@ -165,7 +167,7 @@ class Game extends React.Component {
       clicks,
       currentRecord,
       bgMusicLoading,
-      currentGradientTransition
+      currentGradientTransition,
     } = this.state;
 
     return (
@@ -193,6 +195,7 @@ class Game extends React.Component {
             <TwitterShareBtn />
             <GithubStarBtn />
           </ShareForkBtns>
+          <FollowMe />
           <BubbleText>coco rush</BubbleText>
           {
             loading &&
@@ -234,7 +237,7 @@ class Game extends React.Component {
           </ChocoBoxes>
           <GameStats show={!loading}>
             <ClickIcon />
-            <BubbleText>{this.state.clicks}</BubbleText>
+            <ClickCount>{this.state.clicks}</ClickCount>
           </GameStats>
         </Wrapper>
         <ColorTransition

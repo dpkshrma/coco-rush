@@ -7,3 +7,8 @@ export const gradientColors = [
   ['#ee0979', '#ff6a00'],
   ['#191654', '#43c6ac'],
 ];
+export const API_URL =
+  process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'production'
+    ? 'https://api.stackcrunch.io/cocorush'
+    : 'http://localhost:3030/cocorush';
+export const AUTH_TOKEN_ID = '';
