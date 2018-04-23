@@ -18,7 +18,7 @@ const Title = styled.div`
   font-size: 40px;
 `;
 const DonateBtn = styled.a`
-  margin-top: 72px;
+  margin-top: 56px;
   font-size: 20px;
   padding: 4px 8px;
   border-radius: 4px;
@@ -72,6 +72,7 @@ const ReplayBtn = styled.div`
   cursor: pointer;
   width: fit-content;
   display: flex;
+  margin: 32px 0;
   &:hover .replay-icon {
     animation: ${rotate360} 2s linear infinite;
   }
@@ -81,7 +82,8 @@ const Record = styled.div`
   display: flex;
   align-items: center;
   font-size: 24px;
-`
+  margin-bottom: 8px;
+`;
 const RecordClicks = styled.div`
   font-family: Disko;
   margin-left: 8px;
