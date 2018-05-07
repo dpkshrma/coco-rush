@@ -1,6 +1,7 @@
 import React from "react";
 import promisifySetState from 'promisify-setstate';
 import ReactHowler from 'react-howler';
+import withTracker from './withTracker';
 import {
   Container,
   Wrapper,
@@ -105,6 +106,11 @@ class Game extends React.Component {
           .then(() => {
             // show end of game message after a sec
             if (this.state.gameCompleted) {
+              this.props.track({
+                category: 'Game',
+                action: 'Game Completed',
+                value: clicks
+              });
               let currentRecord = localStorage.getItem('record');
               if (!currentRecord || (clicks < parseInt(currentRecord, 10))) {
                 localStorage.setItem('record', clicks);
@@ -153,6 +159,10 @@ class Game extends React.Component {
   };
 
   resetGame = () => {
+    this.props.track({
+      category: 'Game',
+      action: 'Reset Clicked'
+    });
     this.setState(Object.assign({}, INITIAL_STATE, { loading: false }));
   };
 
@@ -208,6 +218,7 @@ class Game extends React.Component {
                 replay={this.resetGame}
                 newRecord={clicks === currentRecord}
                 record={currentRecord}
+                track={this.props.track}
               />
             }
             {
@@ -249,4 +260,4 @@ class Game extends React.Component {
   }
 }
 
-export default promisifySetState(Game);
+export default withTracker(promisifySetState(Game));

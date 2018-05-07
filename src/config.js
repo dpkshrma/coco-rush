@@ -12,3 +12,9 @@ export const API_URL =
     ? 'https://api.stackcrunch.io/cocorush'
     : 'http://localhost:3030/cocorush';
 export const AUTH_TOKEN_ID = '';
+export const GA_KEY = 'UA-58492803-5';
+export const GA_EVENTS = {
+  GAME_COMPLETED: 'GameCompleted',
+  GAME_RESTART_CLICKED: 'GameRestartClicked',
+  DONATE_CLICKED: 'DonateClicked',
+};
