@@ -43,7 +43,7 @@ export const ColorTransition = ({ gradients, onTransitionEnd, children, ...restP
     top: 0;
     z-index: 10;
   `;
-  const defaultStyle = { f: 1 };
+  const defaultStyle = { f: 0 };
   const springConf = { stiffness: 5, damping: 10 };
   const style = {
     f: spring(1, springConf)
