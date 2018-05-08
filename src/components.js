@@ -8,6 +8,7 @@ import pointerImg from './images/pointer.svg';
 import twitterLogo from './images/twitter-logo.svg';
 import githubLogo from './images/github-logo.svg';
 import { shareUrl, forkUrl } from './config';
+import media from './utils/media';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -25,6 +26,11 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   z-index: 100;
+  ${
+    media.tablet`
+      margin-top: 80px;
+    `
+  }
 `;
 export const ColorTransition = ({ gradients, onTransitionEnd, children, ...restProps }) => {
   const Container = styled.div`
@@ -79,6 +85,12 @@ export const ChocoBox = ({ children, found, gameCompleted, ...restProps }) => {
   const ChocoBoxWrapper = styled.div`
     height: 80px;
     flex: 0 0 80px;
+    ${
+      media.tablet`
+        height: 60px;
+        flex: 0 0 60px;
+      `
+    }
     background: #fff;
     margin: 20px;
     cursor: pointer;
@@ -129,6 +141,12 @@ const zoomAnimation = keyframes`
 export const ChocoImg = styled.img`
   max-height: 80px;
   max-width: 80px;
+  ${
+    media.tablet`
+      max-height: 60px;
+      max-width: 60px;
+    `
+  }
   visibility: ${({ show }) => show ? 'visible' : 'hidden' };
   animation: ${zoomAnimation} 1s alternate infinite;
 `;

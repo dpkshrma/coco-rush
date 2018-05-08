@@ -8,6 +8,7 @@ import chevRightIcon from './images/chevRight.svg';
 import successIcon from './images/checked.svg';
 import rollingIcon from './images/rolling.svg'
 import { req } from './utils/http';
+import media from './utils/media';
 
 const Subscribe = styled.div`
   font-family: fantasy, sans-serif;
@@ -89,7 +90,16 @@ const SubscribeBtn = ({ subscribing, success, onClick }) => {
 };
 const FolowMeContainer = styled.div`
   position: absolute;
-  bottom: 16px;
+  ${
+    media.tablet`
+      position: relative;
+      margin-top: 32px;
+    `
+  }
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  bottom: 0;
   left: 16px;
 `;
 const FollowMeWrapper = styled.div`

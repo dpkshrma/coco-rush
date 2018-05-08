@@ -196,16 +196,15 @@ class Game extends React.Component {
             onEnd={() => { this.setState({ matchFound: false }); }}
             preload={true}
           />
+          <ShareForkBtns>
+            <TwitterShareBtn />
+            <GithubStarBtn />
+          </ShareForkBtns>
           <BGMusicToggle
             loading={bgMusicLoading}
             onClick={() => this.setState({ mute: !this.state.mute })}
             mute={mute}
           />
-          <ShareForkBtns>
-            <TwitterShareBtn />
-            <GithubStarBtn />
-          </ShareForkBtns>
-          <FollowMe />
           <BubbleText>coco rush</BubbleText>
           {
             loading &&
@@ -250,6 +249,7 @@ class Game extends React.Component {
             <ClickIcon />
             <ClickCount>{this.state.clicks}</ClickCount>
           </GameStats>
+          <FollowMe />
         </Wrapper>
         <ColorTransition
           gradients={currentGradientTransition}
