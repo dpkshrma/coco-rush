@@ -12,6 +12,7 @@ import media from './utils/media';
 
 export const Container = styled.div`
   min-height: 100vh;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,13 +35,15 @@ export const Wrapper = styled.div`
 `;
 export const ColorTransition = ({ gradients, onTransitionEnd, children, ...restProps }) => {
   const Container = styled.div`
+    display: flex;
+    height: 100%;
     min-height: 100vh;
     width: 100vw;
     position: absolute;
     top: 0;
     z-index: 10;
   `;
-  const defaultStyle = { f: 0 };
+  const defaultStyle = { f: 1 };
   const springConf = { stiffness: 5, damping: 10 };
   const style = {
     f: spring(1, springConf)
@@ -162,8 +165,8 @@ export const Loading = () => {
 export const BGMusicToggle = (props) => {
   const Container = styled.div`
     position: absolute;
-    top: 32px;
-    right: 32px;
+    top: 16px;
+    right: 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

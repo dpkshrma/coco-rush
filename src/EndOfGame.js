@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Motion, spring } from 'react-motion';
 import ReplayImg from './images/rotating-arrow-to-the-left.svg';
+import media from './utils/media';
 
 const Container = styled.div`
   position: absolute;
@@ -16,13 +17,18 @@ const Container = styled.div`
 `;
 const Title = styled.div`
   font-size: 40px;
+  ${
+    media.tablet`
+      font-size: 30px;
+    `
+  }
 `;
 const DonateBtn = styled.a`
   margin-top: 56px;
   font-size: 20px;
   padding: 4px 8px;
   border-radius: 4px;
-  background: #fff3;
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
   cursor: pointer;
   display: flex;
@@ -30,7 +36,7 @@ const DonateBtn = styled.a`
   justify-content: center;
   text-decoration: none;
   &:hover {
-    box-shadow: 0 0 32px 10px #fffdbc;
+    box-shadow: 0 0 32px 10px rgb(255, 253, 188);
   }
 `;
 const HappyEmoji = ({ excite }) => {

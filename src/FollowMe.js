@@ -17,7 +17,7 @@ const Subscribe = styled.div`
   font-size: 20px;
   display: flex;
   flex-direction: column;
-  background: #fff2;
+  background: rgba(255, 255, 255, 0.2);
   padding: 20px 24px 16px;
   border-radius: 4px;
   position: relative;
@@ -46,11 +46,11 @@ const SubscribeInput = styled.input`
   outline: none;
   padding: 6px;
   border-radius: 2px;
-  background: #fff2;
+  background: rgba(255,255,255,0.2);
   border: none;
   margin: 8px 0;
   &::placeholder {
-    color: #fff9;
+    color: rgba(255,255,255,0.7);
   }
 `;
 const SubscribeMsg = ({ msg }) => {
@@ -65,10 +65,10 @@ const SubscribeMsg = ({ msg }) => {
 const SubscribeBtn = ({ subscribing, success, onClick }) => {
   const Btn = styled.div`
     height: 21px;
-    background: #fff4;
+    background: rgba(255, 255, 255, 0.3);
     display: flex;
     align-items: center;
-    border-left: 1px solid #fff7;
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
     padding: 8px;
     opacity: 0.7;
     cursor: pointer;
