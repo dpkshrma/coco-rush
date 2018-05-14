@@ -1,0 +1,13 @@
+{
+  "short_name": "CocoRush",
+  "name": "CocoRush",
+  "icons": [{
+    "src": "favicon.ico",
+    "sizes": "128x128",
+    "type": "image/png"
+  }],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
