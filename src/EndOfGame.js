@@ -128,7 +128,7 @@ class EndOfGame extends React.Component {
                 <ReplayText>Play Again ?</ReplayText>
               </ReplayBtn>
               <DonateBtn
-                href="https://www.paypal.me/dpkshrma/5usd"
+                href="https://github.com/dpkshrma/coco-rush"
                 target="_blank"
                 onMouseEnter={() => !hovering && this.setState({ hovering: true })}
                 onMouseLeave={() => hovering && this.setState({ hovering: false })}
@@ -140,7 +140,7 @@ class EndOfGame extends React.Component {
                 }}
               >
                 <HappyEmoji excite={hovering} />
-                <div>Buy me some chocolates?</div>
+                <div>Show some love?</div>
                 <HappyEmoji excite={hovering} />
               </DonateBtn>
             </Container>

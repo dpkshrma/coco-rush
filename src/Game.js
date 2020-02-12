@@ -15,16 +15,15 @@ import {
   GameStats,
   ClickIcon,
   ClickCount,
-  ShareForkBtns,
-  TwitterShareBtn,
-  GithubStarBtn,
-  ColorTransition
+  ColorTransition,
+  Silhouette,
+  FireflyCanvas,
 } from "./components";
-import FollowMe from './FollowMe';
 import EndOfGame from './EndOfGame';
 import helpers from "./helpers";
 import { chocoImages } from "./images";
 import { gradientColors } from './config';
+import { Fly, draw } from './firefly';
 
 const INITIAL_STATE = {
   chocolates: helpers.getChocolates(),
@@ -35,7 +34,7 @@ const INITIAL_STATE = {
   matchFound: false,
   clicks: 0,
   gameCompleted: false,
-  showEndOfGame: false,
+  showEndOfGame: true,
   currentRecord: 0,
   bgMusicLoading: true,
   currentGradientTransition: {
@@ -51,6 +50,27 @@ const INITIAL_STATE = {
 class Game extends React.Component {
   state = INITIAL_STATE;
   loadedChocos = [];
+
+  componentDidMount() {
+    const REDRAW_INTERVAL = 50;
+    const WIDTH = window.innerWidth;
+    const HEIGHT = window.innerHeight;
+
+    const canvas = document.getElementById('fireflies');
+
+    canvas.setAttribute('width', WIDTH);
+    canvas.setAttribute('height', HEIGHT);
+    const ctx = canvas.getContext('2d');
+
+    const cfg = { width: WIDTH, height: HEIGHT };
+    const pxs = new Array();
+    for(let i = 0; i < 200; i++) {
+      pxs[i] = new Fly(ctx, REDRAW_INTERVAL, cfg);
+      pxs[i].reset();
+    }
+
+    setInterval(draw(ctx, pxs, cfg), REDRAW_INTERVAL);
+  }
 
   /**
    * Returns true if given choco has same value as the visible one
@@ -182,9 +202,10 @@ class Game extends React.Component {
 
     return (
       <Container>
-        <Wrapper>
+        <Wrapper id="wrapper">
+          <FireflyCanvas id="fireflies" />
           <ReactHowler
-            src={"/sounds/Podington_Bear_-_09_-_Sunset_Stroll_Into_The_Wood.mp3"}
+            src={"/sounds/val.mp3"}
             playing={!mute}
             loop={true}
             preload={true}
@@ -196,10 +217,8 @@ class Game extends React.Component {
             onEnd={() => { this.setState({ matchFound: false }); }}
             preload={true}
           />
-          <ShareForkBtns>
-            <TwitterShareBtn />
-            <GithubStarBtn />
-          </ShareForkBtns>
+          <Silhouette left src={require('./silhouettes/val1.png')} />
+          <Silhouette right src={require('./silhouettes/val2.png')} />
           <BGMusicToggle
             loading={bgMusicLoading}
             onClick={() => this.setState({ mute: !this.state.mute })}
@@ -249,7 +268,6 @@ class Game extends React.Component {
             <ClickIcon />
             <ClickCount>{this.state.clicks}</ClickCount>
           </GameStats>
-          <FollowMe />
         </Wrapper>
         <ColorTransition
           gradients={currentGradientTransition}

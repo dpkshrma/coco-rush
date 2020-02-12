@@ -104,7 +104,7 @@ export const ChocoBox = ({ children, found, gameCompleted, ...restProps }) => {
     &:hover {
       box-shadow: 0 0 42px 12px #fffdbc;
     }
-    ${ found && css`box-shadow: 0 0 42px 12px #7bfff9;` }
+    ${ found && "box-shadow: 0 0 42px 12px #7bfff9;" }
   `;
   const springConf = { stiffness: 40, damping: 10 };
   const defaultStyle = {
@@ -178,7 +178,7 @@ export const BGMusicToggle = (props) => {
   `;
   const LoadingMusic = styled.div`
     font-size: 20px;
-    color: #fff
+    color: #fff;
     font-family: ArchitectsDaughter, fantasy;
   `;
   return (
@@ -258,3 +258,24 @@ export const GithubStarBtn = () => {
     </Btn>
   )
 };
+
+export const Silhouette = ({ left, right, src }) => {
+  const style = {
+    position: 'absolute',
+    opacity: 0.6,
+    maxHeight: '600px'
+  };
+  if (left) {
+    style.left = 0;
+  }
+  if (right) {
+    style.right = 0;
+  }
+  return (
+    <img src={src} style={style} />
+  );
+};
+
+export const FireflyCanvas = styled.canvas`
+  position: absolute;
+`;
