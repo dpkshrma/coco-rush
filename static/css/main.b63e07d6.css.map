@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,UAEE,UACA,QAAU","file":"static/css/main.b63e07d6.css","sourcesContent":["html,\nbody {\n  padding: 0;\n  margin: 0;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/styles.css"],"sourceRoot":""}
