@@ -34,7 +34,7 @@ const INITIAL_STATE = {
   matchFound: false,
   clicks: 0,
   gameCompleted: false,
-  showEndOfGame: true,
+  showEndOfGame: false,
   currentRecord: 0,
   bgMusicLoading: true,
   currentGradientTransition: {
@@ -205,14 +205,14 @@ class Game extends React.Component {
         <Wrapper id="wrapper">
           <FireflyCanvas id="fireflies" />
           <ReactHowler
-            src={"/sounds/val.mp3"}
+            src={process.env.PUBLIC_URL + "/sounds/val.mp3"}
             playing={!mute}
             loop={true}
             preload={true}
             onLoad={() => this.setState({ bgMusicLoading: false })}
           />
           <ReactHowler
-            src={"/sounds/186719__andromadax24__chime-01.wav"}
+            src={process.env.PUBLIC_URL + "/sounds/186719__andromadax24__chime-01.wav"}
             playing={this.state.matchFound}
             onEnd={() => { this.setState({ matchFound: false }); }}
             preload={true}

@@ -1,13 +1,15 @@
 # COCO RUSH
 
+Visit https://dpkshrma.github.io/coco-rush/ for complete game.
+
 This is a simple game designed as a "minimal-jargon" tutorial for new-comers to the React world.
-It is built & deployed using [CodeSandbox](https://codesandbox.io)
 
 Only one thing to keep in mind, before you begin:
 - Read up only minimum amount of info needed to build something cuz learning everything and then starting to code is boring :P
 
 ## Running the code in dev mode
-Fork the project at https://codesandbox.io/s/4rom3r73nx and start editing to see live changes on the right of editor.
+Open up your terminal and run this command: `$ yarn && yarn start`
+Then, open `http://localhost:3000` in your browser check out the game.
 
 And when you're happy, go ahead and send me a PR :)
 
