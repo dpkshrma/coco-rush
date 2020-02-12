@@ -1,16 +1,17 @@
 {
-  "main.css": "static/css/main.845e96a5.css",
-  "main.css.map": "static/css/main.845e96a5.css.map",
-  "main.js": "static/js/main.b1e39357.js",
-  "main.js.map": "static/js/main.b1e39357.js.map",
-  "static/media/checked.svg": "static/media/checked.5def3ae3.svg",
-  "static/media/chevRight.svg": "static/media/chevRight.c6cf4617.svg",
-  "static/media/closed-envelope-circle.svg": "static/media/closed-envelope-circle.c3b6b4be.svg",
+  "main.css": "static/css/main.b85e6296.css",
+  "main.css.map": "static/css/main.b85e6296.css.map",
+  "main.js": "static/js/main.6e8cd0fd.js",
+  "main.js.map": "static/js/main.6e8cd0fd.js.map",
+  "static/media/bear.png": "static/media/bear.ba09c372.png",
   "static/media/github-logo.svg": "static/media/github-logo.88443f86.svg",
+  "static/media/kiss.png": "static/media/kiss.ae1a02b5.png",
   "static/media/pointer.svg": "static/media/pointer.a0047a07.svg",
-  "static/media/rolling.svg": "static/media/rolling.d8a57f45.svg",
+  "static/media/ring.png": "static/media/ring.806c877d.png",
+  "static/media/rose.png": "static/media/rose.fa610b16.png",
   "static/media/rotating-arrow-to-the-left.svg": "static/media/rotating-arrow-to-the-left.6e72e972.svg",
   "static/media/soundOff.svg": "static/media/soundOff.3b1511b2.svg",
   "static/media/soundOn.svg": "static/media/soundOn.78e80b81.svg",
-  "static/media/twitter-logo.svg": "static/media/twitter-logo.c7762fc9.svg"
+  "static/media/twitter-logo.svg": "static/media/twitter-logo.c7762fc9.svg",
+  "static/media/val1.png": "static/media/val1.2e1b8437.png"
 }
